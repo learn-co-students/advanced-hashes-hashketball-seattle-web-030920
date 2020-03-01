@@ -35,7 +35,7 @@ def game_hash
                      :blocks => 5,
                      :slam_dunks => 5,
                    },
-                   { :player_name => "Ben, Gordon",
+                   { :player_name => "Ben Gordon",
                      :number => 8,
                      :shoe => 15,
                      :points => 33,
@@ -131,9 +131,65 @@ def num_points_scored(players_name)
   end
 end
 
+def shoe_size(players_name)
+  #return shoe size 
+  game_hash.each do |place, team|
+    team.each do |attribute, data|
+      if attribute == :players
+        data.each do |player|
+          if player[:player_name] == players_name
+            return player[:shoe]
+          end
+        end
+      end
+    end
+  end
+end
 
+def team_colors(team_name)
+  game_hash.each do |place,team|
+    if team[:team_name] == team_name
+      return team[:colors]
+    end
+  end
+end
 
+def team_names
+  game_hash.map do |place, team|
+    team[:team_name]
+  end
+end 
 
+def player_numbers(team_name)
+  num = [] 
+  game_hash.each do |place, team|
+    if team[:team_name] == team_name
+      team.each do |attributes, data|
+        if attributes == :players 
+          data.each do |player|
+            num << player[:number]
+          end
+        end
+      end
+     end
+    end 
+    nums
+end
+
+def player_stats(players_name)
+  new_hash = {}
+  game_hash.each do |place, team|
+    team.each do |attributes, data|
+      if attributes == :players
+        data.each do |player|
+          if player[:player_name] == player_name
+            new_hash = player.delete_if do |k,v|
+              k == :player_name
+          end
+        end 
+    end
+  end
+end
 
 
 
