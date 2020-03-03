@@ -217,7 +217,7 @@ end
 
 def big_shoe_rebounds()
   big_shoe_input = biggest_shoe()
-  
+
   game_hash.each do |place, team|
 		team.each do |attribute, data|
 			if attribute == :players
@@ -229,4 +229,65 @@ def big_shoe_rebounds()
 			end
 		end
 	end
+end
+
+def most_points_scored()
+	big_score = 0
+	big_scorer = ""
+	game_hash.each do |place, team|
+		team.each do |attributes, data|
+			if attributes == :players
+		data.each do |player|
+			if num_points_scored(player[:player_name]) > big_score
+				big_score = num_points_scored(player[:player_name])
+				big_scorer = player[:player_name]
+			end
+		end
+			end
+		end
+	end
+	big_scorer
+end
+
+def winning_team()
+	brooklyn_score = 0
+	charlotte_score = 0
+
+	game_hash.each do |place, team|
+		team.each do |attributes, data|
+			if attributes == :players
+				data.each do |player|
+					if team[:team_name] == "Charlotte Hornets"
+						charlotte_score += num_points_scored(player[:player_name])
+					end
+					if team[:team_name] == "Brooklyn Nets"
+						brooklyn_score += num_points_scored(player[:player_name])
+					end
+				end
+			end
+		end
+	end
+	if brooklyn_score > charlotte_score
+		return "Brooklyn Nets"
+	else
+		return "Charlotte Hornets"
+	end
+end
+
+def player_with_longest_name()
+	name_length = 0
+	longest_name = ""
+	game_hash.each do |place, team|
+		team.each do |attributes, data|
+			if attributes == :players
+		data.each do |player|
+			if player[:player_name].length > name_length
+				name_length = player[:player_name].length
+				longest_name = player[:player_name]
+			end
+		end
+			end
+		end
+	end
+	longest_name
 end
